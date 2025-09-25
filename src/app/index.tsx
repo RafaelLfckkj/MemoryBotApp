@@ -1,5 +1,7 @@
 import { useRouter } from "expo-router";
 import { Link } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
+
 import {
   View,
   Text,
@@ -13,6 +15,8 @@ import { useState } from "react";
 export default function Index() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+
+  const router = useRouter();
 
   function closeModal() {
     setShowLogin(false);
@@ -79,7 +83,10 @@ export default function Index() {
               />
 
               <Link href="./home" className="text-center">
-                <TouchableOpacity className="bg-[#36D9C8] rounded-lg px-5 py-2 mt-4">
+                <TouchableOpacity
+                  className="bg-[#36D9C8] rounded-lg px-5 py-2 mt-4"
+                  onPress={() => router.push("../home")}
+                >
                   <Text className="text-[#35A296] text-center font-bold">
                     Criar Conta
                   </Text>
