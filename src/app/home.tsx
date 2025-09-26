@@ -3,6 +3,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { Link } from "expo-router";
 
+import CardHome from "../components/CardHome";
+
 export default function Home() {
   const router = useRouter();
 
@@ -30,9 +32,18 @@ export default function Home() {
       </View>
 
       {/* Cards */}
-      <View className="flex-1 bg-white p-5 mt-5 ">
-       
-       
+      <View className="flex-1 justify-center items-center bg-white mt-5 ">
+        <CardHome
+          title="Remédios"
+          subtitle="Ajuste o horário para a entrega dos remédios" 
+          imageSource={require("../../assets/Remedio.png")} 
+         />
+        <CardHome  title="Check-in"
+          subtitle="Escolha horários para uma checagem do bem-estar" 
+          imageSource={require("../../assets/Check.png")} />
+        <CardHome  title="Lembretes"
+          subtitle="Crie horários para os seus lembretes" 
+          imageSource={require("../../assets/Lembretes.png")} />
       </View>
     </SafeAreaView>
   );
