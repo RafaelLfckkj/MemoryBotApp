@@ -12,6 +12,8 @@ import {
 } from "react-native";
 import { useRef, useState } from "react";
 import { Modalize } from "react-native-modalize";
+
+import Textinho from "../components/Textinho";
 import Buttons from "../components/Buttons";
 
 export default function check() {
@@ -43,11 +45,17 @@ export default function check() {
           </Text>
         </View>
 
-
-
       </View>
 
 
+      {/* Inputs */}
+      <View className="mt-5 ">
+        <Textinho title={"Horário do check-in:"} subtitle={"Ex: 10:00, 17:00"} />
+        <Textinho title={"Duração:"} subtitle={"Selecione"} />
+        <Textinho title={"Limite máximo de repetições:"} subtitle={"Selecione"} />
+      </View>
+ 
+      {/* Botão Concluído */}
       <View className="items-center mb-10">
         <Buttons subtitle={"Concluído"} />
       </View>
