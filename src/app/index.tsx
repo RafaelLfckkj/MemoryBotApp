@@ -1,7 +1,6 @@
 import { useRouter } from "expo-router";
 import { Link } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
 
 import {
   View,
