@@ -24,8 +24,8 @@ export default function medicamentos() {
       <View>
         {/* Seta para voltar */}
         <View className="w-16">
-          <Link href="./">
-            <TouchableOpacity onPress={() => router.push("./")}>
+          <Link href="./home">
+            <TouchableOpacity onPress={() => router.push("./home")}>
               <Image
                 source={require("../../assets/Arrow.png")}
                 className="w-8 h-8 m-5"
@@ -36,11 +36,14 @@ export default function medicamentos() {
 
         {/* Bolinha de adicionar nova receita */}
         <View className=" bg-[#36D9C8]  rounded-full items-end justify-center p-2 absolute top-5 right-5 shadow shadow-black">
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("./CadastroReceita")}>
+            <Link href="./CadastroReceita">
             <Image
               source={require("../../assets/Mais.png")}
               className="w-6 h-6"
             />
+            </Link>
+            
           </TouchableOpacity>
         </View>
 
@@ -65,7 +68,11 @@ export default function medicamentos() {
 
 
       <View className="items-center mb-10">
-         <Buttons subtitle={"+ Cadastrar uma receita"}/>
+        <TouchableOpacity onPress={() => router.push("./CadastroReceita")}>
+          <Link href="./CadastroReceita">
+            <Buttons subtitle={"+ Cadastrar uma receita"} />
+          </Link>
+        </TouchableOpacity>
       </View>
       
     </View>
