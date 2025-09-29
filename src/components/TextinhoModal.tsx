@@ -11,13 +11,15 @@ import {
   Alert,
 } from "react-native";
 
-export default function Textinho({ title, subtitle }) {
+export default function Textinho({ title, subtitle, onPress }) {
   return (
     <View className="m-3">
-      <View className="space-y-2">
+      <TouchableOpacity className="space-y-2" onPress={onPress}>
         <Text className="font-bold text-[#898989]">{title}</Text>
-        <TextInput placeholder={`${subtitle}`} className="border border-[#898989] rounded-md p-3" />
-      </View>
+        <View  className="border border-[#898989] rounded-md p-3" >
+          <Text className=" text-[#898989]">{subtitle}</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }

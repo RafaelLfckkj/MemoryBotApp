@@ -2,6 +2,9 @@ import { router, useRouter } from "expo-router";
 import { Link } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
+import TimePickerScroll from "../components/TimePickerScroll";
+import DatePickerCalendar from "../components/DatePickerCalendar";
+
 import {
   View,
   Text,
@@ -14,27 +17,29 @@ import { useRef, useState } from "react";
 import { Modalize } from "react-native-modalize";
 import Buttons from "../components/Buttons";
 import Textinho from "../components/Textinho";
+import TextinhoModal from "../components/TextinhoModal";
 
-import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
-
-
-import { Platform } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function CadastroReceita() {
-
-  
   const modalizeHoraUso = useRef<Modalize>(null);
-  const [horaUso, setHoraUso] = useState(new Date());
+  const modalizeDuracao = useRef<Modalize>(null);
 
-  // const modalizeReflogin = useRef<Modalize>(null);
+  const [horaUso, setHoraUso] = useState({ hour: 12, minute: 0 });
+
+  const [duracao, setDuracao] = useState({
+    startDate: new Date(),
+    endDate: new Date(new Date().setDate(new Date().getDate() + 30)),
+  });
+
 
   function onOpenHoradeUso() {
     modalizeHoraUso.current?.open();
   }
 
-  // function onOpenLogin() {
-  //   modalizeReflogin.current?.open();
-  // }
+  function onOpenDuracao() {
+    modalizeDuracao.current?.open();
+  }
 
   return (
     <GestureHandlerRootView>
@@ -44,7 +49,7 @@ export default function CadastroReceita() {
           {/* Seta para voltar */}
           <View className="w-16">
             <Link href="./">
-              <TouchableOpacity onPress={() => router.push("./")}>
+              <TouchableOpacity onPress={() => router.push("./medicamentos")}>
                 <Image
                   source={require("../../assets/Arrow.png")}
                   className="w-8 h-8 m-5"
@@ -73,13 +78,17 @@ export default function CadastroReceita() {
             title={"Nome do medicamento:"}
             subtitle={"Ex: Paracetamol 500gm"}
           />
-          <Textinho
+          <TextinhoModal
             title={"Hora de uso:"}
-            subtitle={"HH:mm"}
+            subtitle={`${horaUso.hour.toString().padStart(2, "0")}:${horaUso.minute.toString().padStart(2, "0")}`}
             onPress={onOpenHoradeUso}
           />
           <Textinho title={"Dosagem"} subtitle={"Ex: 2 comprimidos"} />
-          <Textinho title={"Duração:"} subtitle={"Selecione"} />
+          <TextinhoModal
+            title={"Duração:"}
+            subtitle={"Selecione"}
+            onPress={onOpenDuracao}
+          />
         </View>
 
         <View className="items-center mb-10">
@@ -88,16 +97,68 @@ export default function CadastroReceita() {
 
         {/* Modal hora de uso */}
         <Modalize ref={modalizeHoraUso} snapPoint={500} modalHeight={500}>
-          <View className="flex-1 ">
-            <Text className="text-lg font-bold ml-5 mt-10">
+          <View className="ml-5 mt-10">
+            <Text className="text-lg font-bold text-[#35A296]">
               Selecione o horário
             </Text>
-            <Text className="text-[#898989] ml-5">
+            <Text className="text-[#898989] mt-1">
               Selecione abaixo a entrega deste medicamento
             </Text>
           </View>
 
-      
+          <TimePickerScroll
+            initialHour={horaUso.hour}
+            initialMinute={horaUso.minute}
+            onTimeChange={(hour, minute) => {
+              setHoraUso({ hour, minute });
+            }}
+          />
+
+          <View className="p-5">
+            <TouchableOpacity
+              className="bg-[#92F2E8] rounded-xl p-4"
+              onPress={() => modalizeHoraUso.current?.close()}
+            >
+              <Text className="text-[#35A296] text-center font-bold text-base">
+                Continuar
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </Modalize>
+
+        {/* Modal Duração */}
+
+        <Modalize ref={modalizeDuracao} snapPoint={600} modalHeight={600}>
+          <View className="flex-1 ">
+            <Text className="text-lg font-bold ml-5 mt-10">
+              Selecione a duração
+            </Text>
+            <Text className="text-[#898989] ml-5">
+              Selecione abaixo a duração de entrega
+            </Text>
+            <Text className="text-[#898989] ml-5">deste medicamento</Text>
+
+            <View className="mt-6">
+              <DatePickerCalendar
+                initialStartDate={duracao.startDate}
+                initialEndDate={duracao.endDate}
+                onDateChange={(startDate, endDate) => {
+                  setDuracao({ startDate, endDate });
+                }}
+              />
+            </View>
+
+            <View className="px-5 mt-6 mb-6">
+              <TouchableOpacity
+                className="bg-[#92F2E8] rounded-xl p-4"
+                onPress={() => modalizeDuracao.current?.close()}
+              >
+                <Text className="text-[#35A296] text-center font-bold text-base">
+                  Continuar
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </Modalize>
       </View>
     </GestureHandlerRootView>
