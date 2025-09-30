@@ -95,7 +95,7 @@ export default function Check() {
         </View>
         {/* Botão Concluído */}
         <View className="items-center mb-10">
-          <Buttons subtitle="Concluído" />
+          <Buttons subtitle="Concluído" onPress={() => router.push("./")} />
         </View>
 
         {/* Modal */}

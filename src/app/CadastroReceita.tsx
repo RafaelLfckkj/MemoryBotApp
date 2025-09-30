@@ -18,12 +18,50 @@ import { Modalize } from "react-native-modalize";
 import Buttons from "../components/Buttons";
 import Textinho from "../components/Textinho";
 import TextinhoModal from "../components/TextinhoModal";
+import { useMedicamentos } from "../components/MedicamentosContext";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function CadastroReceita() {
   const modalizeHoraUso = useRef<Modalize>(null);
   const modalizeDuracao = useRef<Modalize>(null);
+
+  const { adicionarMedicamento } = useMedicamentos();
+
+  // Estados existentes...
+  const [nomeMedicamento, setNomeMedicamento] = useState("");
+  const [dosagem, setDosagem] = useState("");
+
+  const handleCadastrar = () => {
+    if (!nomeMedicamento.trim()) {
+      Alert.alert("Erro", "Digite o nome do medicamento");
+      return;
+    }
+
+    if (!dosagem.trim()) {
+      Alert.alert("Erro", "Digite a dosagem");
+      return;
+    }
+
+    if (!duracao.startDate || !duracao.endDate) {
+      Alert.alert("Erro", "Selecione a duração do tratamento");
+      return;
+    }
+
+    adicionarMedicamento({
+      nome: nomeMedicamento,
+      horario: `${horaUso.hour.toString().padStart(2, "0")}:${horaUso.minute.toString().padStart(2, "0")}`,
+      dosagem: dosagem,
+      duracao: duracao,
+    });
+
+    // Limpar campos após cadastrar
+    setNomeMedicamento("");
+    setDosagem("");
+    setDuracao({ startDate: null, endDate: null });
+
+    router.push("./medicamentos");
+  };
 
   const [horaUso, setHoraUso] = useState({ hour: 12, minute: 0 });
 
@@ -85,16 +123,35 @@ export default function CadastroReceita() {
 
         {/* Formulário */}
         <View className="mt-5 ">
-          <Textinho
-            title={"Nome do medicamento:"}
-            subtitle={"Ex: Paracetamol 500gm"}
-          />
+          <View className="m-3">
+            <View className="space-y-2">
+              <Text className="font-bold text-[#898989]">
+                Nome do medicamento
+              </Text>
+              <TextInput
+                value={nomeMedicamento}
+                onChangeText={setNomeMedicamento}
+                placeholder={"Ex: Paracetamol 500gm"}
+                className="border border-[#898989] rounded-md p-3"
+              />
+            </View>
+          </View>
           <TextinhoModal
             title={"Hora de uso:"}
             subtitle={`${horaUso.hour.toString().padStart(2, "0")}:${horaUso.minute.toString().padStart(2, "0")}`}
             onPress={onOpenHoradeUso}
           />
-          <Textinho title={"Dosagem"} subtitle={"Ex: 2 comprimidos"} />
+          <View className="m-3">
+            <View className="space-y-2">
+              <Text className="font-bold text-[#898989]">Dosagem:</Text>
+              <TextInput
+                value={dosagem}
+                onChangeText={setDosagem}
+                placeholder={"Ex: 2 comprimidos"}
+                className="border border-[#898989] rounded-md p-3"
+              />
+            </View>
+          </View>
           <TextinhoModal
             title={"Duração:"}
             subtitle={formatDuracao()}
@@ -103,7 +160,7 @@ export default function CadastroReceita() {
         </View>
 
         <View className="items-center mb-10">
-          <Buttons subtitle={"+ Cadastrar receita"} />
+          <Buttons subtitle={"+ Cadastrar receita"} onPress={handleCadastrar} />
         </View>
 
         {/* Modal hora de uso */}

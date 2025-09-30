@@ -14,7 +14,13 @@ import { useRef, useState } from "react";
 import { Modalize } from "react-native-modalize";
 import Buttons from "../components/Buttons";
 
+import { ScrollView } from "react-native";
+import { useMedicamentos } from "../components/MedicamentosContext";
+import MedicamentoCard from "../components/MedicamentoCard";
+
 export default function medicamentos() {
+  const { medicamentos, removerMedicamento } = useMedicamentos();
+
   return (
     <View className="flex-1  bg-[#ffffff]">
       {/* Header */}
@@ -57,28 +63,41 @@ export default function medicamentos() {
         </View>
       </View>
 
-      {/* Meio da pagina */}
-      <View className="flex-1 items-center justify-center w-50">
-        <Image
-          source={require("../../assets/Hand.png")}
-          className="w-full h-60"
-        />
+      {medicamentos.length === 0 ? (
+        // Mostrar a tela vazia que você já tem
+        <View className="flex-1 items-center justify-center">
+          <Image
+            source={require("../../assets/Hand.png")}    
+          />
+          <Text className="text-[#3B3B3B] text-sm font-bold mt-7">
+            Você ainda não tem nenhuma
+          </Text>
+          <Text className="text-[#3B3B3B] text-sm font-bold">
+            receita cadastrada
+          </Text>
+        </View>
+      ) : (
+        // Mostrar a lista de medicamentos
+        <ScrollView className="flex-1 mt-5">
+          {medicamentos.map((med) => (
+            <MedicamentoCard
+              key={med.id}
+              nome={med.nome}
+              horario={med.horario}
+              dosagem={med.dosagem}
+              onDelete={() => removerMedicamento(med.id)}
+            />
+          ))}
+        </ScrollView>
+      )}
 
-        <Text className="text-[#3B3B3B] text-sm font-bold mt-7">
-          Você ainda não tem nenhuma
-        </Text>
-        <Text className="text-[#3B3B3B] text-sm font-bold">
-          receita cadastrada
-        </Text>
-      </View>
-
+      {/* Botão de cadastrar (sempre visível) */}
       <View className="items-center mb-10">
         <TouchableOpacity onPress={() => router.push("./CadastroReceita")}>
-          <Link href="./CadastroReceita">
-            <Buttons subtitle={"+ Cadastrar uma receita"} />
-          </Link>
+         <Buttons subtitle={"+ Cadastrar uma receita"} onPress={() => router.push("./CadastroReceita")}/>
         </TouchableOpacity>
       </View>
+
     </View>
   );
 }
