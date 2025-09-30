@@ -34,8 +34,9 @@ export default function Check() {
     modalizeRepeticao.current?.open();
   }
 
-  const [duracaoSelecionada, setDuracaoSelecionada] = useState("10 seg");
-  const [repeticaoSelecionada, setRepeticaoSelecionada] = useState("1 vez");
+  const [duracaoSelecionada, setDuracaoSelecionada] = useState("Selecione...");
+  const [repeticaoSelecionada, setRepeticaoSelecionada] =
+    useState("Selecione...");
 
   const formatHorarios = () => {
     return horarios
@@ -89,13 +90,14 @@ export default function Check() {
           <TextinhoModal
             onPress={onOpenRepeticao}
             title="Limite máximo de repetições:"
-           subtitle={repeticaoSelecionada}
+            subtitle={repeticaoSelecionada}
           />
         </View>
         {/* Botão Concluído */}
         <View className="items-center mb-10">
           <Buttons subtitle="Concluído" />
         </View>
+
         {/* Modal */}
         <Modalize ref={modalizeHorario} snapPoint={550} modalHeight={550}>
           <View className="mt-8">
@@ -195,14 +197,15 @@ export default function Check() {
             {/* Texto */}
             <View className="ml-5 mt-10">
               <Text className="text-lg font-bold text-[#35A296]">
-               Selecione o limite de repetições
+                Selecione o limite de repetições
               </Text>
               <Text className="text-[#898989] mt-1">
-                Selecione abaixo o limite de repetições de Check-in 
+                Selecione abaixo o limite de repetições de Check-in
               </Text>
-              <Text className="text-[#898989]">para o envio de uma notificação ao cuidador</Text>
+              <Text className="text-[#898989]">
+                para o envio de uma notificação ao cuidador
+              </Text>
             </View>
-
 
             {/* Grid 2x2 de botões */}
             <View className="px-5 mt-8">
@@ -247,6 +250,17 @@ export default function Check() {
               </View>
             </View>
 
+            {/* Botão Continuar */}
+            <View className="px-5 mt-8">
+              <TouchableOpacity
+                className="bg-[#92F2E8] rounded-xl p-4"
+                onPress={() => modalizeRepeticao.current?.close()}
+              >
+                <Text className="text-[#35A296] text-center font-bold text-base">
+                  Continuar
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </Modalize>
       </View>

@@ -16,7 +16,10 @@ export default function Textinho({ title, subtitle }) {
     <View className="m-3">
       <View className="space-y-2">
         <Text className="font-bold text-[#898989]">{title}</Text>
-        <TextInput placeholder={`${subtitle}`} className="border border-[#898989] rounded-md p-3" />
+        <TextInput
+          placeholder={`${subtitle}`}
+          className="border border-[#898989] rounded-md p-3"
+        />
       </View>
     </View>
   );

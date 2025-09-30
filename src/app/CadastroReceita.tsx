@@ -27,11 +27,13 @@ export default function CadastroReceita() {
 
   const [horaUso, setHoraUso] = useState({ hour: 12, minute: 0 });
 
-  const [duracao, setDuracao] = useState({
-    startDate: new Date(),
-    endDate: new Date(new Date().setDate(new Date().getDate() + 30)),
+  const [duracao, setDuracao] = useState<{
+    startDate: Date | null;
+    endDate: Date | null;
+  }>({
+    startDate: null,
+    endDate: null,
   });
-
 
   function onOpenHoradeUso() {
     modalizeHoraUso.current?.open();
@@ -40,6 +42,15 @@ export default function CadastroReceita() {
   function onOpenDuracao() {
     modalizeDuracao.current?.open();
   }
+
+  const formatDuracao = () => {
+    if (duracao.startDate && duracao.endDate) {
+      const start = duracao.startDate.toLocaleDateString("pt-BR");
+      const end = duracao.endDate.toLocaleDateString("pt-BR");
+      return `De ${start} até ${end}`;
+    }
+    return "Selecione...";
+  };
 
   return (
     <GestureHandlerRootView>
@@ -86,7 +97,7 @@ export default function CadastroReceita() {
           <Textinho title={"Dosagem"} subtitle={"Ex: 2 comprimidos"} />
           <TextinhoModal
             title={"Duração:"}
-            subtitle={"Selecione"}
+            subtitle={formatDuracao()}
             onPress={onOpenDuracao}
           />
         </View>
@@ -130,7 +141,7 @@ export default function CadastroReceita() {
 
         <Modalize ref={modalizeDuracao} snapPoint={600} modalHeight={600}>
           <View className="flex-1 ">
-            <Text className="text-lg font-bold ml-5 mt-10">
+            <Text className="text-lg font-bold ml-5 mt-10 text-[#35A296]">
               Selecione a duração
             </Text>
             <Text className="text-[#898989] ml-5">
@@ -140,8 +151,8 @@ export default function CadastroReceita() {
 
             <View className="mt-6">
               <DatePickerCalendar
-                initialStartDate={duracao.startDate}
-                initialEndDate={duracao.endDate}
+                initialStartDate={duracao.startDate || new Date()}
+                initialEndDate={duracao.endDate || undefined}
                 onDateChange={(startDate, endDate) => {
                   setDuracao({ startDate, endDate });
                 }}

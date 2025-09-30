@@ -17,9 +17,6 @@ import Buttons from "../components/Buttons";
 export default function medicamentos() {
   return (
     <View className="flex-1  bg-[#ffffff]">
-
-     
-
       {/* Header */}
       <View>
         {/* Seta para voltar */}
@@ -38,20 +35,25 @@ export default function medicamentos() {
         <View className=" bg-[#36D9C8]  rounded-full items-end justify-center p-2 absolute top-5 right-5 shadow shadow-black">
           <TouchableOpacity onPress={() => router.push("./CadastroReceita")}>
             <Link href="./CadastroReceita">
-            <Image
-              source={require("../../assets/Mais.png")}
-              className="w-6 h-6"
-            />
+              <Image
+                source={require("../../assets/Mais.png")}
+                className="w-6 h-6"
+              />
             </Link>
-            
           </TouchableOpacity>
         </View>
 
         {/* Texto */}
         <View className="w-30">
-          <Text className="capitalize font-bold text-[#35A296] text-2xl ml-5">Minhas Receitas</Text>
-          <Text className="text-[#898989] ml-5 text-left">Acompanhe seus medicamentos</Text>
-          <Text className="text-[#898989] ml-5 text-left">cadastrados e gerencie lembretes</Text>
+          <Text className="capitalize font-bold text-[#35A296] text-2xl ml-5">
+            Minhas Receitas
+          </Text>
+          <Text className="text-[#898989] ml-5 text-left">
+            Acompanhe seus medicamentos
+          </Text>
+          <Text className="text-[#898989] ml-5 text-left">
+            cadastrados e gerencie lembretes
+          </Text>
         </View>
       </View>
 
@@ -62,10 +64,13 @@ export default function medicamentos() {
           className="w-full h-60"
         />
 
-        <Text className="text-[#3B3B3B] text-sm font-bold mt-7">Você ainda não tem nenhuma</Text>
-        <Text className="text-[#3B3B3B] text-sm font-bold">receita cadastrada</Text>
+        <Text className="text-[#3B3B3B] text-sm font-bold mt-7">
+          Você ainda não tem nenhuma
+        </Text>
+        <Text className="text-[#3B3B3B] text-sm font-bold">
+          receita cadastrada
+        </Text>
       </View>
-
 
       <View className="items-center mb-10">
         <TouchableOpacity onPress={() => router.push("./CadastroReceita")}>
@@ -74,7 +79,6 @@ export default function medicamentos() {
           </Link>
         </TouchableOpacity>
       </View>
-      
     </View>
   );
 }

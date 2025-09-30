@@ -44,7 +44,7 @@ export default function MultipleTimePickerScroll({
   return (
     <View>
       {/* Header com título e botão de deletar */}
-      <View className="flex-row justify-between items-center px-5 mb-4">
+      <View className="flex-row justify-between items-center px-5 ">
         <Text className="text-lg font-bold text-[#35A296]">
           Horário do Check-in {selectedIndex + 1}
         </Text>
@@ -69,23 +69,23 @@ export default function MultipleTimePickerScroll({
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        className="px-5 mb-4"
+        className="px-5 mb-4 bg-[#D9D9D9] w-80 shadow ml-10 h-8 rounded-full"
         contentContainerStyle={{ gap: 8 }}
       >
         {times.map((time, index) => (
           <TouchableOpacity
             key={index}
             onPress={() => setSelectedIndex(index)}
-            className={`w-10 h-10 rounded-full justify-center items-center border-2
+            className={`w-10 h-6 rounded-s-xl rounded-e-xl justify-center items-center border-2 shadow mt-1
               ${
                 selectedIndex === index
-                  ? "bg-[#35A296] border-[#35A296]"
-                  : "bg-white border-gray-300"
+                  ? "bg-white border-gray-300"
+                  : "bg-[#BCBABA] border-[#BCBABA]"
               }`}
           >
             <Text
               className={`text-sm font-semibold
-                ${selectedIndex === index ? "text-white" : "text-gray-600"}
+                ${selectedIndex === index ? "text-[#35A296]" : "text-[#35A296]"}
               `}
             >
               {index + 1}
@@ -96,7 +96,6 @@ export default function MultipleTimePickerScroll({
         {times.length < maxTimes && (
           <TouchableOpacity
             onPress={addTime}
-            className="w-10 h-10 rounded-full justify-center items-center border-2 border-[#35A296] bg-white"
           >
             <Text className="text-[#35A296] text-xl font-bold">+</Text>
           </TouchableOpacity>

@@ -1,6 +1,5 @@
-// DatePickerCalendar.tsx
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
 
 interface DatePickerCalendarProps {
   onDateChange?: (startDate: Date, endDate: Date) => void;
@@ -8,10 +7,10 @@ interface DatePickerCalendarProps {
   initialEndDate?: Date;
 }
 
-export default function DatePickerCalendar({ 
+export default function DatePickerCalendar({
   onDateChange,
   initialStartDate = new Date(),
-  initialEndDate
+  initialEndDate,
 }: DatePickerCalendarProps) {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedStartDate, setSelectedStartDate] = useState(initialStartDate);
@@ -19,11 +18,21 @@ export default function DatePickerCalendar({
   const [isSelectingEnd, setIsSelectingEnd] = useState(false);
 
   const monthNames = [
-    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro",
   ];
 
-  const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
+  const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
 
   const getDaysInMonth = (date: Date) => {
     const year = date.getFullYear();
@@ -34,11 +43,11 @@ export default function DatePickerCalendar({
     const startingDayOfWeek = firstDay.getDay();
 
     const days = [];
-    
+
     for (let i = 0; i < startingDayOfWeek; i++) {
       days.push(null);
     }
-    
+
     for (let day = 1; day <= daysInMonth; day++) {
       days.push(new Date(year, month, day));
     }
@@ -74,52 +83,68 @@ export default function DatePickerCalendar({
   };
 
   const nextMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1));
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1)
+    );
   };
 
   const prevMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1));
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1)
+    );
   };
 
   const days = getDaysInMonth(currentMonth);
-  
+
   const weeks = [];
   for (let i = 0; i < days.length; i += 7) {
     weeks.push(days.slice(i, i + 7));
   }
 
   return (
-    <View className="px-5">
+    <View className="px-5 bg-[#F5F5F5] pt-3 pb-3 shadow">
       {/* Month Navigation */}
-      <View className="flex-row justify-between items-center mb-5 px-2">
-        <TouchableOpacity onPress={prevMonth} className="w-8 h-8 justify-center items-center">
-          <Text className="text-xl text-gray-700">‹</Text>
+      <View className="flex-row justify-between items-center mb-5 px-2 ">
+        <TouchableOpacity
+          onPress={prevMonth}
+          className="w-8 h-8 justify-center items-center bg-white rounded-full shadow"
+        >
+          <Text className="text-3xl mb-2 text-gray-700">‹</Text>
         </TouchableOpacity>
-        
-        <Text className="text-base font-semibold text-gray-900">
+
+        <Text className="text-base font-bold bg-white p-2 pl-5 pr-5 shadow rounded-xl">
           {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
         </Text>
-        
-        <TouchableOpacity onPress={nextMonth} className="w-8 h-8 justify-center items-center">
-          <Text className="text-xl text-gray-700">›</Text>
+
+        <TouchableOpacity
+          onPress={nextMonth}
+          className="w-8 h-8 justify-center items-center bg-white rounded-full shadow"
+        >
+          <Text className="text-3xl mb-2 text-gray-700">›</Text>
         </TouchableOpacity>
       </View>
 
       {/* Week Days Header */}
-      <View className="flex-row mb-3 px-1">
+      <View className="flex-row mb-3 px-1 ">
         {weekDays.map((day, index) => (
           <View key={index} className="flex-1 items-center">
-            <Text className="text-gray-600 font-semibold text-xs">{day}</Text>
+            <Text className="font-bold text-base">{day}</Text>
           </View>
         ))}
       </View>
 
       {/* Calendar Weeks */}
       {weeks.map((week, weekIndex) => (
-        <View key={weekIndex} className="flex-row mb-2">
+        <View key={weekIndex} className="flex-row mb-1">
           {week.map((date, dayIndex) => {
             if (!date) {
-              return <View key={`empty-${weekIndex}-${dayIndex}`} className="flex-1 h-11" />;
+              return (
+                <View
+                  key={`empty-${weekIndex}-${dayIndex}`}
+                  style={{ width: "14.28%" }}
+                  className="h-10 items-center justify-center"
+                />
+              );
             }
 
             const isStart = isSameDay(date, selectedStartDate);
@@ -127,19 +152,23 @@ export default function DatePickerCalendar({
             const inRange = isInRange(date);
 
             return (
-              <View key={dayIndex} className="flex-1 items-center">
+              <View
+                key={dayIndex}
+                style={{ width: "14.28%" }}
+                className="items-center justify-center"
+              >
                 <TouchableOpacity
                   onPress={() => handleDateSelect(date)}
-                  className={`w-10 h-10 rounded-full justify-center items-center
-                    ${inRange ? 'bg-[#92F2E8]' : ''}
-                    ${isStart || isEnd ? 'bg-[#35A296]' : ''}
+                  className={`w-9 h-9 rounded-lg justify-center items-center
+                    ${inRange ? "bg-[#92F2E8]" : ""}
+                    ${isStart || isEnd ? "bg-[#35A296]" : ""}
                   `}
                 >
                   <Text
                     className={`text-sm font-medium
-                      ${isStart || isEnd ? 'text-white' : ''}
-                      ${inRange && !isStart && !isEnd ? 'text-[#35A296]' : ''}
-                      ${!inRange ? 'text-gray-700' : ''}
+                      ${isStart || isEnd ? "font-bold" : ""}
+                      ${inRange && !isStart && !isEnd ? "text-[#35A296]" : ""}
+                      ${!inRange ? "text-gray-700" : ""}
                     `}
                   >
                     {date.getDate()}
@@ -150,8 +179,6 @@ export default function DatePickerCalendar({
           })}
         </View>
       ))}
-
-      
     </View>
   );
 }

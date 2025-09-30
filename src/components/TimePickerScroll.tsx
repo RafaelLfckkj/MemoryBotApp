@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import React, { useState, useRef, useEffect } from "react";
+import { View, Text, ScrollView } from "react-native";
 
-const ITEM_HEIGHT = 60;
+const ITEM_HEIGHT = 50;
 
 interface TimePickerScrollProps {
   onTimeChange?: (hour: number, minute: number) => void;
@@ -9,14 +9,14 @@ interface TimePickerScrollProps {
   initialMinute?: number;
 }
 
-export default function TimePickerScroll({ 
-  onTimeChange, 
-  initialHour = 12, 
-  initialMinute = 0 
+export default function TimePickerScroll({
+  onTimeChange,
+  initialHour = 12,
+  initialMinute = 0,
 }: TimePickerScrollProps) {
   const [selectedHour, setSelectedHour] = useState(initialHour);
   const [selectedMinute, setSelectedMinute] = useState(initialMinute);
-  
+
   const hourScrollRef = useRef<ScrollView>(null);
   const minuteScrollRef = useRef<ScrollView>(null);
 
@@ -34,7 +34,7 @@ export default function TimePickerScroll({
         animated: false,
       });
     }, 100);
-    
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -60,25 +60,27 @@ export default function TimePickerScroll({
 
   const renderTimeItem = (value: number, isSelected: boolean) => {
     return (
-      <View key={value} className="h-[60px] justify-center items-center">
-        <Text
-          className={`text-4xl ${
-            isSelected 
-              ? 'font-bold text-black opacity-100' 
-              : 'font-normal text-gray-400 opacity-30'
-          }`}
-        >
-          {value.toString().padStart(2, '0')}
-        </Text>
+      <View key={value} className="h-[50px] justify-center items-center">
+        {isSelected ? (
+          <View className="bg-[#F5F5F5] rounded-2xl px-6 py-2 shadow">
+            <Text className="text-2xl font-bold text-black">
+              {value.toString().padStart(2, "0")}
+            </Text>
+          </View>
+        ) : (
+          <Text className="text-2xl font-normal text-gray-300">
+            {value.toString().padStart(2, "0")}
+          </Text>
+        )}
       </View>
     );
   };
 
   return (
-    <View className="justify-center items-center">
-      <View className="flex-row justify-center items-center h-[280px] w-full relative">
+    <View className="justify-center items-center py-4">
+      <View className="flex-row justify-center items-center h-[250px] w-full relative">
         {/* Hours */}
-        <View className="flex-1 items-center h-[280px] overflow-hidden">
+        <View className="flex-1 items-center h-[250px] overflow-hidden">
           <ScrollView
             ref={hourScrollRef}
             showsVerticalScrollIndicator={false}
@@ -93,10 +95,10 @@ export default function TimePickerScroll({
         </View>
 
         {/* Separator */}
-        <Text className="text-4xl font-bold mx-4 text-black">:</Text>
+        <Text className="text-3xl font-bold mx-3 text-black">:</Text>
 
         {/* Minutes */}
-        <View className="flex-1 items-center h-[280px] overflow-hidden">
+        <View className="flex-1 items-center h-[250px] overflow-hidden">
           <ScrollView
             ref={minuteScrollRef}
             showsVerticalScrollIndicator={false}
@@ -106,15 +108,11 @@ export default function TimePickerScroll({
             onScrollEndDrag={handleMinuteScroll}
             contentContainerStyle={{ paddingVertical: ITEM_HEIGHT * 2 }}
           >
-            {minutes.map((minute) => renderTimeItem(minute, minute === selectedMinute))}
+            {minutes.map((minute) =>
+              renderTimeItem(minute, minute === selectedMinute)
+            )}
           </ScrollView>
         </View>
-
-        {/* Selection Indicator */}
-        <View 
-          className="absolute top-[110px] left-0 right-0 h-[60px] bg-[#92F2E8]/30 rounded-lg mx-4"
-          pointerEvents="none"
-        />
       </View>
     </View>
   );

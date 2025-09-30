@@ -7,11 +7,11 @@ interface BotaozinhoProps {
   onPress?: () => void;
 }
 
-export default function Botaozinho({ 
-  imageName, 
-  title, 
+export default function Botaozinho({
+  imageName,
+  title,
   isSelected = false,
-  onPress 
+  onPress,
 }: BotaozinhoProps) {
   const imagens = {
     icone1: require("../../assets/Relogio.png"),
@@ -19,29 +19,27 @@ export default function Botaozinho({
   };
 
   return (
-    <TouchableOpacity 
+    <TouchableOpacity
       onPress={onPress}
       style={{
-        backgroundColor: isSelected ? '#35A296' : '#F5F5F5',
+        backgroundColor: isSelected ? "#35A296" : "#F5F5F5",
       }}
       className="flex-row items-center px-4 py-3 rounded-full shadow"
     >
-      <Image 
+      <Image
         source={isSelected ? imagens.icone2 : imagens[imageName]}
         className="w-5 h-5 mr-5"
       />
-      <Text 
+      <Text
         style={{
-          color: isSelected ? '#FFFFFF' : '#374151',
+          color: isSelected ? "#FFFFFF" : "#374151",
         }}
         className="text-sm font-medium"
       >
         {title}
       </Text>
-      
-      {isSelected && (
-        <Text className="text-white text-lg ml-auto"></Text>
-      )}
+
+      {isSelected && <Text className="text-white text-lg ml-auto"></Text>}
     </TouchableOpacity>
   );
 }
