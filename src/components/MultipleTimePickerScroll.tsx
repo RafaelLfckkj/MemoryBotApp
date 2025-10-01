@@ -54,8 +54,7 @@ export default function MultipleTimePickerScroll({
             className="w-8 h-8 justify-center items-center"
           >
             <Image
-              source={require("../../assets/Trash.png")}
-              className="w-8 h-8 m-5"
+              source={require("../../assets/Trash.png")}  
             />
           </TouchableOpacity>
         )}
@@ -69,7 +68,7 @@ export default function MultipleTimePickerScroll({
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        className="px-5 mb-4 bg-[#D9D9D9] w-80 shadow ml-10 h-8 rounded-full"
+        className="px-5 mb-4 bg-[#D9D9D9] w-80 shadow ml-[65px] h-8 rounded-full"
         contentContainerStyle={{ gap: 8 }}
       >
         {times.map((time, index) => (

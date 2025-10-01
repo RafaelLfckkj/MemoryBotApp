@@ -102,7 +102,7 @@ export default function DatePickerCalendar({
   }
 
   return (
-    <View className="px-5 bg-[#F5F5F5] pt-3 pb-3 shadow">
+    <View className="px-5 bg-[#F5F5F5] pt-3 pb-3 ml-5 mr-5 shadow">
       {/* Month Navigation */}
       <View className="flex-row justify-between items-center mb-5 px-2 ">
         <TouchableOpacity

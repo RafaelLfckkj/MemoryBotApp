@@ -92,7 +92,7 @@ export default function CadastroReceita() {
 
   return (
     <GestureHandlerRootView>
-      <View className="flex-1 bg-white">
+      <View className="flex-1 bg-white mt-10">
         {/* Header */}
         <View>
           {/* Seta para voltar */}
@@ -108,7 +108,7 @@ export default function CadastroReceita() {
           </View>
 
           {/* Texto */}
-          <View>
+          <View className="mt-10">
             <Text className="capitalize font-bold text-[#35A296] text-2xl ml-5">
               Nova Receita
             </Text>
@@ -132,7 +132,7 @@ export default function CadastroReceita() {
                 value={nomeMedicamento}
                 onChangeText={setNomeMedicamento}
                 placeholder={"Ex: Paracetamol 500gm"}
-                className="border border-[#898989] rounded-md p-3"
+                className="border border-[#BCBABA] rounded-md p-3 "
               />
             </View>
           </View>
@@ -148,7 +148,7 @@ export default function CadastroReceita() {
                 value={dosagem}
                 onChangeText={setDosagem}
                 placeholder={"Ex: 2 comprimidos"}
-                className="border border-[#898989] rounded-md p-3"
+                className="border border-[#BCBABA] rounded-md p-3"
               />
             </View>
           </View>
@@ -216,7 +216,7 @@ export default function CadastroReceita() {
               />
             </View>
 
-            <View className="px-5 mt-6 mb-6">
+            <View className="px-5">
               <TouchableOpacity
                 className="bg-[#92F2E8] rounded-xl p-4"
                 onPress={() => modalizeDuracao.current?.close()}

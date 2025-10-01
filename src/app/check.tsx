@@ -49,7 +49,7 @@ export default function Check() {
 
   return (
     <GestureHandlerRootView>
-      <View className="flex-1 bg-white">
+      <View className="flex-1 bg-white mt-10">
         {/* Header */}
         <View>
           <View className="w-16">

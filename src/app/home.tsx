@@ -9,10 +9,10 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <SafeAreaView className="flex-1 bg-[#36D9C8]">
+    <View className="flex-1 bg-[#36D9C8]">
       {/* Header */}
-      <View className="flex-row items-center justify-between px-5 py-3">
-        <View className="w-20 h-20 bg-white rounded-full shadow" />
+      <View className="flex-row items-center justify-between px-5 py-3 mt-10">
+        <View className="w-20 h-20 bg-white rounded-full shadow-2xl" />
         <Link href="./">
           <TouchableOpacity onPress={() => router.push("./")}>
             <Image
@@ -58,7 +58,8 @@ export default function Home() {
           subtitle="Crie horários para os seus lembretes"
           imageSource={require("../../assets/Lembretes.png")}
         />
+        
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

@@ -22,7 +22,7 @@ export default function medicamentos() {
   const { medicamentos, removerMedicamento } = useMedicamentos();
 
   return (
-    <View className="flex-1  bg-[#ffffff]">
+    <View className="flex-1 bg-[#ffffff] mt-10">
       {/* Header */}
       <View>
         {/* Seta para voltar */}
