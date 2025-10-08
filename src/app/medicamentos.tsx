@@ -58,7 +58,7 @@ export default function medicamentos() {
             Acompanhe seus medicamentos
           </Text>
           <Text className="text-[#898989] ml-5 text-left">
-            cadastrados e gerencie lembretes
+            cadastrados 
           </Text>
         </View>
       </View>

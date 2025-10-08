@@ -35,8 +35,7 @@ export default function Check() {
   }
 
   const [duracaoSelecionada, setDuracaoSelecionada] = useState("Selecione...");
-  const [repeticaoSelecionada, setRepeticaoSelecionada] =
-    useState("Selecione...");
+  const [repeticaoSelecionada, setRepeticaoSelecionada] = useState("Selecione...");
 
   const formatHorarios = () => {
     return horarios

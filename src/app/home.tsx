@@ -12,7 +12,12 @@ export default function Home() {
     <View className="flex-1 bg-[#36D9C8]">
       {/* Header */}
       <View className="flex-row items-center justify-between px-5 py-3 mt-10">
-        <View className="w-20 h-20 bg-white rounded-full shadow-2xl" />
+        <View className="w-20 h-20 bg-white rounded-full shadow-2xl" >
+          <Image
+              source={require("../../assets/BluetoothOff.png")}
+              className="ml-5 mt-5 w-10 h-10"
+            />
+        </View >
         <Link href="./">
           <TouchableOpacity onPress={() => router.push("./")}>
             <Image
@@ -53,12 +58,15 @@ export default function Home() {
           </TouchableOpacity>
         </Link>
 
-        <CardHome
-          title="Lembretes"
-          subtitle="Crie horários para os seus lembretes"
-          imageSource={require("../../assets/Lembretes.png")}
-        />
-        
+        <Link href="./lembretes"> 
+        <TouchableOpacity onPress={() => router.push("./lembretes")}>
+          <CardHome
+            title="Lembretes"
+            subtitle="Crie horários para os seus lembretes"
+            imageSource={require("../../assets/Lembretes.png")}
+          />
+        </TouchableOpacity>
+        </Link>
       </View>
     </View>
   );
