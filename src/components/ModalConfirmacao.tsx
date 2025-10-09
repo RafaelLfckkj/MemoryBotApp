@@ -21,9 +21,9 @@ export default function ModalConfirmacao({
       transparent
       animationType="fade"
     >
-      <View className="flex-1 justify-center items-center bg-black/50">
-        <View className="bg-white rounded-2xl p-6 w-80">
-          <Text className="text-lg font-bold text-gray-800 mb-2">
+      <View className="flex-1 justify-center items-center bg-black/50 ">
+        <View className="bg-white rounded-2xl p-6 w-96">
+          <Text className="text-lg font-bold mb-2">
             {title}
           </Text>
           <Text className="text-gray-600 mb-6">
@@ -33,9 +33,9 @@ export default function ModalConfirmacao({
           <View className="flex-row gap-3">
             <TouchableOpacity
               onPress={onCancel}
-              className="flex-1 bg-gray-200 rounded-xl p-3"
+              className="flex-1 bg-[#92F2E8] rounded-xl p-3 shadow-black shadow-2xl"
             >
-              <Text className="text-gray-800 font-bold text-center">
+              <Text className="text-[#35A296] font-bold text-center">
                 Não
               </Text>
             </TouchableOpacity>

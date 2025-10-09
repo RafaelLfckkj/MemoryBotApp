@@ -39,20 +39,20 @@ export default function SeletorDiasSemana({
   const isDiaSelecionado = (nome: string) => dias.includes(nome);
 
   return (
-    <View className="flex-row justify-around px-5 mt-5">
+    <View className="flex-row justify-around px-5 mt-5 bg-[#F5F5F5] shadow-black shadow-2xl">
       {diasSemana.map((dia, index) => (
         <TouchableOpacity
           key={index}
           onPress={() => toggleDia(index)}
-          className={`w-12 h-12 rounded-full justify-center items-center border-2
+          className={`w-12 h-12 justify-center items-center border-2
             ${isDiaSelecionado(dia.nome) 
-              ? 'bg-[#35A296] border-[#35A296]' 
+              ? ' border-[#92F2E8]' 
               : 'bg-white border-gray-300'
             }`}
         >
           <Text 
             className={`font-bold ${
-              isDiaSelecionado(dia.nome) ? 'text-white' : 'text-gray-600'
+              isDiaSelecionado(dia.nome) ? '' : 'text-gray-600'
             }`}
           >
             {dia.sigla}

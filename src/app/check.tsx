@@ -106,7 +106,7 @@ export default function Check() {
           />
         </View>
         {/* Botão Concluído */}
-        <View className="items-center mb-10">
+        <View className="items-center mb-10 mt-96 ">
           <Buttons
             subtitle={tudoPreenchido ? "Check-in imediato" : "Concluído"}
             onPress={() => router.push("./home")}

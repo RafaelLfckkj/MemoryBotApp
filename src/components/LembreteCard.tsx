@@ -24,23 +24,23 @@ export default function LembreteCard({
 
   return (
     <>
-      <View className="bg-[#92F2E8] rounded-2xl p-4 mx-5 mb-4">
+      <View className="bg-[#BBDAD7] rounded-2xl p-6 mx-5 mb-4 shadow-black shadow-2xl">
         <View className="flex-row justify-between items-start mb-3">
-          <Text className="text-lg font-bold text-gray-800">{nome}</Text>
+          <Text className="text-lg font-bold">{nome}</Text>
           <TouchableOpacity onPress={() => setModalVisible(true)}>
             <Image source={require("../../assets/Trash.png")} />
           </TouchableOpacity>
         </View>
         
-        <View className="flex-row gap-3">
-          <View className="bg-white rounded-full px-3 py-2 flex-row items-center">
+        <View className="flex-row gap-3 mt-3">
+          <View className="bg-white rounded-full px-3 py-2 flex-row items-center shadow-black shadow-xl">
             <Image source={require("../../assets/Relogio.png")} />
-            <Text className="text-sm font-medium text-gray-700">{horarios}</Text>
+            <Text className="text-sm font-medium ml-3">{horarios}</Text>
           </View>
           
-          <View className="bg-white rounded-full px-3 py-2 flex-row items-center">
+          <View className="bg-white rounded-full px-3 py-2 flex-row items-center shadow-black shadow-xl">
             <Image source={require("../../assets/Uptade.png")} />
-            <Text className="text-sm font-medium text-gray-700">{dias}</Text>
+            <Text className="text-sm font-medium ml-3">{dias}</Text>
           </View>
         </View>
       </View>

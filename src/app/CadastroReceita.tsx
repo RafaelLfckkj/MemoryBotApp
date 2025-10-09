@@ -159,7 +159,7 @@ export default function CadastroReceita() {
           />
         </View>
 
-        <View className="items-center mb-10">
+        <View className="items-center mb-10 mt-60">
           <Buttons subtitle={"+ Cadastrar receita"} onPress={handleCadastrar} />
         </View>
 

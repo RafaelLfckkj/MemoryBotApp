@@ -134,7 +134,7 @@ export default function CadastrarLembretes() {
           />
         </View>
 
-        <View className="items-center mb-10">
+        <View className="items-center mb-10 mt-96">
           <Buttons
             subtitle="+ Cadastrar um lembrete"
             onPress={handleCadastrar}
@@ -144,8 +144,8 @@ export default function CadastrarLembretes() {
         {/* Modal Lembrete */}
         <Modalize
           ref={modalizeLembrete}
-          snapPoint={lembretePersonalizado ? 600 : 550}
-          modalHeight={lembretePersonalizado ? 600 : 550}
+          snapPoint={lembretePersonalizado ? 450 : 450}
+          modalHeight={lembretePersonalizado ? 450 : 450}
         >
           {!lembretePersonalizado ? (
             <View className="ml-5 mt-10">
@@ -240,7 +240,7 @@ export default function CadastrarLembretes() {
                 value={nomeLembrete}
                 onChangeText={setNomeLembrete}
                 placeholder="Escreva o nome do lembrete..."
-                className="border border-[#BCBABA] rounded-md p-3 mb-4"
+                className=" bg-[#F5F5F5] rounded-xl p-3 mb-4  shadow-black shadow-md border border-gray-500"
               />
 
               <Text className="font-bold text-[#35A296] mb-2">Mensagem:</Text>
@@ -250,7 +250,7 @@ export default function CadastrarLembretes() {
                 placeholder="Descrição..."
                 multiline
                 numberOfLines={4}
-                className="border border-[#BCBABA] rounded-md p-3"
+                className=" bg-[#F5F5F5] rounded-xl p-3 shadow-black shadow-md border border-gray-500"
                 style={{ textAlignVertical: "top" }}
               />
 
@@ -309,7 +309,7 @@ export default function CadastrarLembretes() {
               <Text className="text-lg font-bold text-[#35A296]">
                 Selecione os dias
               </Text>
-              <Text className="text-[#898989] mt-1">
+              <Text className="text-[#898989] mt-1 mb-10">
                 Selecione abaixo os dias em que o lembrete será tocado
               </Text>
             </View>
@@ -321,7 +321,7 @@ export default function CadastrarLembretes() {
 
             <View className="px-5 mt-6">
               <TouchableOpacity
-                className="bg-[#92F2E8] rounded-xl p-4"
+                className="bg-[#92F2E8] rounded-xl p-4 mt-10"
                 onPress={() => modalizeDia.current?.close()}
               >
                 <Text className="text-[#35A296] text-center font-bold text-base">
