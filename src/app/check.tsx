@@ -3,7 +3,7 @@ import { Link } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { View, Text, TouchableOpacity, Image } from "react-native";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Modalize } from "react-native-modalize";
 
 import Textinho from "../components/Textinho";
@@ -35,7 +35,8 @@ export default function Check() {
   }
 
   const [duracaoSelecionada, setDuracaoSelecionada] = useState("Selecione...");
-  const [repeticaoSelecionada, setRepeticaoSelecionada] = useState("Selecione...");
+  const [repeticaoSelecionada, setRepeticaoSelecionada] =
+    useState("Selecione...");
 
   const formatHorarios = () => {
     return horarios
@@ -45,6 +46,18 @@ export default function Check() {
       )
       .join(", ");
   };
+
+  const [tudoPreenchido, setTudoPreenchido] = useState(false);
+
+  // Adicione um useEffect para verificar
+  useEffect(() => {
+    const preenchido =
+      horarios.length > 0 &&
+      duracaoSelecionada !== "Selecione..." &&
+      repeticaoSelecionada !== "Selecione...";
+
+    setTudoPreenchido(preenchido);
+  }, [horarios, duracaoSelecionada, repeticaoSelecionada]);
 
   return (
     <GestureHandlerRootView>
@@ -94,7 +107,10 @@ export default function Check() {
         </View>
         {/* Botão Concluído */}
         <View className="items-center mb-10">
-          <Buttons subtitle="Concluído" onPress={() => router.push("./")} />
+          <Buttons
+            subtitle={tudoPreenchido ? "Check-in imediato" : "Concluído"}
+            onPress={() => router.push("./home")}
+          />
         </View>
 
         {/* Modal */}
