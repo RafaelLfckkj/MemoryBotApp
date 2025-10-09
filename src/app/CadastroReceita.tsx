@@ -25,12 +25,14 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 export default function CadastroReceita() {
   const modalizeHoraUso = useRef<Modalize>(null);
   const modalizeDuracao = useRef<Modalize>(null);
+  const modalizeCompartimento = useRef<Modalize>(null);
 
   const { adicionarMedicamento } = useMedicamentos();
 
   // Estados existentes...
   const [nomeMedicamento, setNomeMedicamento] = useState("");
   const [dosagem, setDosagem] = useState("");
+  const [compartimento, setCompartimento] = useState("");
 
   const handleCadastrar = () => {
     if (!nomeMedicamento.trim()) {
@@ -40,6 +42,11 @@ export default function CadastroReceita() {
 
     if (!dosagem.trim()) {
       Alert.alert("Erro", "Digite a dosagem");
+      return;
+    }
+    
+    if (!compartimento.trim()) {
+      Alert.alert("Erro", "Selecione o compartimento");
       return;
     }
 
@@ -53,11 +60,13 @@ export default function CadastroReceita() {
       horario: `${horaUso.hour.toString().padStart(2, "0")}:${horaUso.minute.toString().padStart(2, "0")}`,
       dosagem: dosagem,
       duracao: duracao,
+      
     });
 
     // Limpar campos após cadastrar
     setNomeMedicamento("");
     setDosagem("");
+    setCompartimento("");
     setDuracao({ startDate: null, endDate: null });
 
     router.push("./medicamentos");
@@ -79,6 +88,9 @@ export default function CadastroReceita() {
 
   function onOpenDuracao() {
     modalizeDuracao.current?.open();
+  }
+  function onOpenCompartimento() {
+    modalizeCompartimento.current?.open();
   }
 
   const formatDuracao = () => {
@@ -157,9 +169,14 @@ export default function CadastroReceita() {
             subtitle={formatDuracao()}
             onPress={onOpenDuracao}
           />
+          <TextinhoModal
+            title={"Compartimento:"}
+            subtitle={compartimento || "Selecione..."}
+            onPress={onOpenCompartimento}
+          />
         </View>
 
-        <View className="items-center mb-10 mt-60">
+        <View className="items-center mb-10 mt-48">
           <Buttons subtitle={"+ Cadastrar receita"} onPress={handleCadastrar} />
         </View>
 
@@ -222,6 +239,87 @@ export default function CadastroReceita() {
                 onPress={() => modalizeDuracao.current?.close()}
               >
                 <Text className="text-[#35A296] text-center font-bold text-base">
+                  Continuar
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modalize>
+
+        <Modalize ref={modalizeCompartimento} snapPoint={600} modalHeight={600}>
+          <View>
+            <Text className="text-lg font-bold ml-5 mt-10 text-[#35A296]">
+              Selecione o compartimento
+            </Text>
+            <Text className="text-[#898989] ml-5">
+              Selecione abaixo qual compartimento será
+            </Text>
+            <Text className="text-[#898989] ml-5">
+              realizado a entrega dos medicamentos
+            </Text>
+
+            <View className="flex justify-center items-center mt-14 mr-7 ml-5">
+              <View className="gap-5">
+                <TouchableOpacity
+                  className="bg-[#F5F5F5] w-80 h-16 rounded-xl shadow-md  shadow-black"
+                  onPress={() => {
+                    setCompartimento("Compartimento 1");
+                    modalizeCompartimento.current?.close();
+                  }}
+                >
+                  <View className="flex-row justify-between items-center px-3 mt-2 ">
+                    <Text className="text-[#35A296] font-bold text-xl ml-3 mt-2">
+                      Compartimento 1
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  className="bg-[#F5F5F5] w-80 h-16 rounded-xl shadow-md shadow-black"
+                  onPress={() => {
+                    setCompartimento("Compartimento 2");
+                    modalizeCompartimento.current?.close();
+                  }}
+                >
+                  <View className="flex-row justify-between items-center px-3 mt-2 ">
+                    <Text className="text-[#35A296] font-bold text-xl ml-3 mt-2">
+                      Compartimento 2
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  className="bg-[#F5F5F5] w-80 h-16 rounded-xl shadow-md shadow-black"
+                  onPress={() => {
+                    setCompartimento("Compartimento 3");
+                    modalizeCompartimento.current?.close();
+                  }}
+                >
+                  <View className="flex-row justify-between items-center px-3 mt-2 ">
+                    <Text className="text-[#35A296] font-bold text-xl ml-3 mt-2">
+                      Compartimento 3
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  className="bg-[#F5F5F5] w-80 h-16 rounded-xl shadow-md shadow-black"
+                  onPress={() => {
+                    setCompartimento("Compartimento 4");
+                    modalizeCompartimento.current?.close();
+                  }}
+                >
+                  <View className="flex-row justify-between items-center px-3 mt-2 ">
+                    <Text className="text-[#35A296] font-bold text-xl ml-3 mt-2">
+                      Compartimento 4
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View className="px-5 mt-20">
+              <TouchableOpacity
+                className="bg-[#92F2E8] rounded-xl p-4"
+                onPress={() => modalizeCompartimento.current?.close()}
+              >
+                <Text className="text-[#35A296] text-center font-bold text-base ">
                   Continuar
                 </Text>
               </TouchableOpacity>

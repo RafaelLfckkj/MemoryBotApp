@@ -8,6 +8,8 @@ import CardHome from "../components/CardHome";
 export default function Home() {
   const router = useRouter();
 
+
+
   return (
     <View className="flex-1 bg-[#36D9C8]">
       {/* Header */}
