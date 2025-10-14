@@ -27,6 +27,7 @@ export default function CadastrarLembretes() {
     { hour: 10, minute: 0 },
     { hour: 17, minute: 0 },
   ]);
+  const {enviarLembrete, enviarAgua } = useESP32();
   const [lembretePersonalizado, setLembretePersonalizado] = useState(false);
   const [nomeLembrete, setNomeLembrete] = useState("");
   const [mensagemLembrete, setMensagemLembrete] = useState("");
@@ -60,7 +61,6 @@ export default function CadastrarLembretes() {
 
     return diasSelecionados.map((d) => abreviacoes[d]).join(", ");
   };
-  const { enviarLembrete } = useESP32();
 
   const handleCadastrar = async () => {
     if (!nomeLembrete.trim()) {
@@ -77,6 +77,7 @@ export default function CadastrarLembretes() {
       Alert.alert("Erro", "Selecione pelo menos um dia");
       return;
     }
+    
 
     // Adicionar no app
     adicionarLembrete({
@@ -88,7 +89,13 @@ export default function CadastrarLembretes() {
     // Enviar para o ESP32
     for (const horario of horarios) {
       const horaFormatada = `${horario.hour.toString().padStart(2, "0")}:${horario.minute.toString().padStart(2, "0")}`;
-      await enviarLembrete(horaFormatada, nomeLembrete);
+
+      // ← ADICIONE ESSA LÓGICA:
+      if (nomeLembrete === "Lembrete de água") {
+        await enviarAgua(horaFormatada); // Envia como AGUA
+      } else {
+        await enviarLembrete(horaFormatada, nomeLembrete); // Envia como REM
+      }
     }
 
     // Limpar campos
