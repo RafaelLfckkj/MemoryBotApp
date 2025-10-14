@@ -1,5 +1,4 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { Link } from "expo-router";
 
@@ -15,10 +14,14 @@ export default function Home() {
       {/* Header */}
       <View className="flex-row items-center justify-between px-5 py-3 mt-10">
         <View className="w-20 h-20 bg-white rounded-full shadow-2xl" >
+          <TouchableOpacity  onPress={() => router.push("./testeESP32")}>
+
           <Image
-              source={require("../../assets/BluetoothOff.png")}
+           
+              source={require("../../assets/Wi-FiDisconnected.png")}
               className="ml-5 mt-5 w-10 h-10"
             />
+          </TouchableOpacity>
         </View >
         <Link href="./">
           <TouchableOpacity onPress={() => router.push("./")}>

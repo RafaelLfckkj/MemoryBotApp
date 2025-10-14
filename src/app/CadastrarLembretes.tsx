@@ -18,6 +18,8 @@ import MultipleTimePicker from "../components/MutipleTimePicker";
 import SeletorDiasSemana from "../components/SeletorDiasSemana";
 import { useLembretes } from "../components/LembretesContext";
 
+import { useESP32 } from "../components/ESP32Context";
+
 export default function CadastrarLembretes() {
   const { adicionarLembrete } = useLembretes();
 
@@ -58,7 +60,9 @@ export default function CadastrarLembretes() {
 
     return diasSelecionados.map((d) => abreviacoes[d]).join(", ");
   };
-  const handleCadastrar = () => {
+  const { enviarLembrete } = useESP32();
+
+  const handleCadastrar = async () => {
     if (!nomeLembrete.trim()) {
       Alert.alert("Erro", "Selecione um lembrete");
       return;
@@ -74,11 +78,18 @@ export default function CadastrarLembretes() {
       return;
     }
 
+    // Adicionar no app
     adicionarLembrete({
       nome: nomeLembrete,
       horarios: horarios,
       dias: diasSelecionados,
     });
+
+    // Enviar para o ESP32
+    for (const horario of horarios) {
+      const horaFormatada = `${horario.hour.toString().padStart(2, "0")}:${horario.minute.toString().padStart(2, "0")}`;
+      await enviarLembrete(horaFormatada, nomeLembrete);
+    }
 
     // Limpar campos
     setNomeLembrete("");

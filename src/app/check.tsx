@@ -2,7 +2,7 @@ import { router } from "expo-router";
 import { Link } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { View, Text, TouchableOpacity, Image, Alert } from "react-native";
 import { useRef, useState, useEffect } from "react";
 import { Modalize } from "react-native-modalize";
 
@@ -11,6 +11,8 @@ import TextinhoModal from "../components/TextinhoModal";
 import Buttons from "../components/Buttons";
 import Botaozinho from "../components/botaozinho";
 import MultipleTimePickerScroll from "../components/MultipleTimePickerScroll";
+
+import { useESP32 } from "../components/ESP32Context";
 
 export default function Check() {
   const modalizeHorario = useRef<Modalize>(null);
@@ -58,6 +60,23 @@ export default function Check() {
 
     setTudoPreenchido(preenchido);
   }, [horarios, duracaoSelecionada, repeticaoSelecionada]);
+
+  const { enviarCheckin } = useESP32();
+
+  const handleConcluir = async () => {
+    if (horarios.length === 0) {
+      Alert.alert("Erro", "Configure pelo menos um horário");
+      return;
+    }
+
+    // Enviar cada horário para o ESP32
+    for (const horario of horarios) {
+      const horaFormatada = `${horario.hour.toString().padStart(2, "0")}:${horario.minute.toString().padStart(2, "0")}`;
+      await enviarCheckin(horaFormatada);
+    }
+
+    router.push("./home");
+  };
 
   return (
     <GestureHandlerRootView>
@@ -109,7 +128,7 @@ export default function Check() {
         <View className="items-center mb-10 mt-96 ">
           <Buttons
             subtitle={tudoPreenchido ? "Check-in imediato" : "Concluído"}
-            onPress={() => router.push("./home")}
+            onPress={handleConcluir}
           />
         </View>
 

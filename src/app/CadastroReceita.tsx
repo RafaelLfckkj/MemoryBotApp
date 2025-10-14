@@ -20,6 +20,8 @@ import Textinho from "../components/Textinho";
 import TextinhoModal from "../components/TextinhoModal";
 import { useMedicamentos } from "../components/MedicamentosContext";
 
+import { useESP32 } from "../components/ESP32Context";
+
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function CadastroReceita() {
@@ -32,9 +34,12 @@ export default function CadastroReceita() {
   // Estados existentes...
   const [nomeMedicamento, setNomeMedicamento] = useState("");
   const [dosagem, setDosagem] = useState("");
+
+  const { enviarMedicamento } = useESP32();
   const [compartimento, setCompartimento] = useState("");
 
-  const handleCadastrar = () => {
+  // No handleCadastrar, adicione:
+  const handleCadastrar = async () => {
     if (!nomeMedicamento.trim()) {
       Alert.alert("Erro", "Digite o nome do medicamento");
       return;
@@ -44,29 +49,27 @@ export default function CadastroReceita() {
       Alert.alert("Erro", "Digite a dosagem");
       return;
     }
-    
-    if (!compartimento.trim()) {
-      Alert.alert("Erro", "Selecione o compartimento");
-      return;
-    }
 
     if (!duracao.startDate || !duracao.endDate) {
       Alert.alert("Erro", "Selecione a duração do tratamento");
       return;
     }
 
+    // Adicionar no app (Context local)
     adicionarMedicamento({
       nome: nomeMedicamento,
       horario: `${horaUso.hour.toString().padStart(2, "0")}:${horaUso.minute.toString().padStart(2, "0")}`,
       dosagem: dosagem,
       duracao: duracao,
-      
     });
 
-    // Limpar campos após cadastrar
+    // ENVIAR PARA O ESP32 (Wi-Fi)
+    const horaFormatada = `${horaUso.hour.toString().padStart(2, "0")}:${horaUso.minute.toString().padStart(2, "0")}`;
+    await enviarMedicamento(horaFormatada, nomeMedicamento, compartimento);
+
+    // Limpar campos
     setNomeMedicamento("");
     setDosagem("");
-    setCompartimento("");
     setDuracao({ startDate: null, endDate: null });
 
     router.push("./medicamentos");

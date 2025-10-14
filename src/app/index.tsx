@@ -83,7 +83,7 @@ export default function Index() {
                 placeholder="Confirme sua senha"
               />
 
-              <Link href="./home" className="text-center ">
+              
                 <TouchableOpacity
                   className="bg-[#36D9C8] rounded-lg px-10 py-3 shadow-2xl"
                   onPress={() => router.push("../home")}
@@ -92,7 +92,7 @@ export default function Index() {
                     Criar Conta
                   </Text>
                 </TouchableOpacity>
-              </Link>
+              
             </View>
           </View>
         </Modalize>
@@ -118,7 +118,8 @@ export default function Index() {
                 placeholder="Digite sua senha"
               />
 
-              <Link href="./home" className="text-center">
+              
+
                 <TouchableOpacity
                   className="bg-[#36D9C8] rounded-lg px-10 py-3 shadow-2xl"
                   onPress={() => router.push("../home")}
@@ -127,7 +128,8 @@ export default function Index() {
                     Login
                   </Text>
                 </TouchableOpacity>
-              </Link>
+              
+              
             </View>
           </View>
         </Modalize>
