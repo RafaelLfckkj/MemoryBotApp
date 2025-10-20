@@ -20,7 +20,7 @@ interface ESP32ContextType {
 const ESP32Context = createContext<ESP32ContextType | undefined>(undefined);
 
 export function ESP32Provider({ children }: { children: React.ReactNode }) {
-  const [esp32IP, setESP32IP] = useState("192.168.15.37"); 
+  const [esp32IP, setESP32IP] = useState("192.168.4.1");
   const [isConnected, setIsConnected] = useState(false);
 
   const enviarAgua = async (hora: string): Promise<boolean> => {
