@@ -15,6 +15,8 @@ interface ESP32ContextType {
   testarServos: () => Promise<boolean>;
   verificarConexao: () => Promise<boolean>;
   enviarAgua: (hora: string) => Promise<boolean>;
+  enviarBanho: (hora: string) => Promise<boolean>;
+  enviarComida: (hora: string) => Promise<boolean>;
 }
 
 const ESP32Context = createContext<ESP32ContextType | undefined>(undefined);
@@ -34,6 +36,44 @@ export function ESP32Provider({ children }: { children: React.ReactNode }) {
         return true;
       }
       Alert.alert("Erro", "Falha ao cadastrar lembrete de água");
+      return false;
+    } catch (error) {
+      console.log("❌ Erro:", error);
+      Alert.alert("Erro", "Não foi possível conectar ao ESP32");
+      return false;
+    }
+  };
+
+  const enviarBanho = async (hora: string): Promise<boolean> => {
+    try {
+      const url = `http://${esp32IP}/addBanho?hora=${hora}`;
+      const response = await fetch(url, { method: "GET" });
+
+      if (response.ok) {
+        console.log("✅ Lembrete de banho enviado:", hora);
+        Alert.alert("Sucesso", "Lembrete de banho cadastrado no ESP32!");
+        return true;
+      }
+      Alert.alert("Erro", "Falha ao cadastrar lembrete de banho");
+      return false;
+    } catch (error) {
+      console.log("❌ Erro:", error);
+      Alert.alert("Erro", "Não foi possível conectar ao ESP32");
+      return false;
+    }
+  };
+
+  const enviarComida = async (hora: string): Promise<boolean> => {
+    try {
+      const url = `http://${esp32IP}/addComida?hora=${hora}`;
+      const response = await fetch(url, { method: "GET" });
+
+      if (response.ok) {
+        console.log("✅ Lembrete de comida enviado:", hora);
+        Alert.alert("Sucesso", "Lembrete de comida cadastrado no ESP32!");
+        return true;
+      }
+      Alert.alert("Erro", "Falha ao cadastrar lembrete de comida");
       return false;
     } catch (error) {
       console.log("❌ Erro:", error);
@@ -68,7 +108,8 @@ export function ESP32Provider({ children }: { children: React.ReactNode }) {
     compartimento: string
   ): Promise<boolean> => {
     try {
-      const url = `http://${esp32IP}/addMedicamento?hora=${hora}&nome=${encodeURIComponent(nome)}&comp=${encodeURIComponent(compartimento)}`;
+      const comp = compartimento.replace(/\D/g, "");
+      const url = `http://${esp32IP}/addMedicamento?hora=${hora}&nome=${encodeURIComponent(nome)}&comp=${encodeURIComponent(comp)}`;
       const response = await fetch(url, { method: "GET" });
 
       if (response.ok) {
@@ -153,7 +194,9 @@ export function ESP32Provider({ children }: { children: React.ReactNode }) {
         enviarMedicamento,
         enviarCheckin,
         enviarLembrete,
-        enviarAgua, 
+        enviarAgua,
+        enviarBanho, 
+        enviarComida,
         testarServos,
         verificarConexao,
       }}
