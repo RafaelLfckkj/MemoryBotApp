@@ -22,7 +22,7 @@ interface ESP32ContextType {
 const ESP32Context = createContext<ESP32ContextType | undefined>(undefined);
 
 export function ESP32Provider({ children }: { children: React.ReactNode }) {
-  const [esp32IP, setESP32IP] = useState("192.168.4.1");
+  const [esp32IP, setESP32IP] = useState("10.96.178.108");
   const [isConnected, setIsConnected] = useState(false);
 
   const enviarAgua = async (hora: string): Promise<boolean> => {
@@ -109,7 +109,7 @@ export function ESP32Provider({ children }: { children: React.ReactNode }) {
   ): Promise<boolean> => {
     try {
       const comp = compartimento.replace(/\D/g, "");
-      const url = `http://${esp32IP}/addMedicamento?hora=${hora}&nome=${encodeURIComponent(nome)}&comp=${encodeURIComponent(comp)}`;
+      const url = `http://${esp32IP}/addMedicamento?hora=${hora}&compartimento=${comp}`;
       const response = await fetch(url, { method: "GET" });
 
       if (response.ok) {
@@ -195,7 +195,7 @@ export function ESP32Provider({ children }: { children: React.ReactNode }) {
         enviarCheckin,
         enviarLembrete,
         enviarAgua,
-        enviarBanho, 
+        enviarBanho,
         enviarComida,
         testarServos,
         verificarConexao,

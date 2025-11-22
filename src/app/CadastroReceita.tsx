@@ -5,14 +5,9 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import TimePickerScroll from "../components/TimePickerScroll";
 import DatePickerCalendar from "../components/DatePickerCalendar";
 
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  Image,
-  Alert,
-} from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+import { View, Text, TextInput, Image, Alert } from "react-native";
 import { useRef, useState } from "react";
 import { Modalize } from "react-native-modalize";
 import Buttons from "../components/Buttons";
@@ -40,20 +35,20 @@ export default function CadastroReceita() {
 
   // No handleCadastrar, adicione:
   const handleCadastrar = async () => {
-    if (!nomeMedicamento.trim()) {
-      Alert.alert("Erro", "Digite o nome do medicamento");
-      return;
-    }
+    // if (!nomeMedicamento.trim()) {
+    //   Alert.alert("Erro", "Digite o nome do medicamento");
+    //   return;
+    // }
 
-    if (!dosagem.trim()) {
-      Alert.alert("Erro", "Digite a dosagem");
-      return;
-    }
+    // if (!dosagem.trim()) {
+    //   Alert.alert("Erro", "Digite a dosagem");
+    //   return;
+    // }
 
-    if (!duracao.startDate || !duracao.endDate) {
-      Alert.alert("Erro", "Selecione a duração do tratamento");
-      return;
-    }
+    // if (!duracao.startDate || !duracao.endDate) {
+    //   Alert.alert("Erro", "Selecione a duração do tratamento");
+    //   return;
+    // }
 
     // Adicionar no app (Context local)
     adicionarMedicamento({
@@ -164,6 +159,7 @@ export default function CadastroReceita() {
                 onChangeText={setDosagem}
                 placeholder={"Ex: 2 comprimidos"}
                 className="border border-[#BCBABA] rounded-md p-3"
+                keyboardType="numeric"
               />
             </View>
           </View>
@@ -180,7 +176,14 @@ export default function CadastroReceita() {
         </View>
 
         <View className="items-center mb-10 mt-48">
-          <Buttons subtitle={"+ Cadastrar receita"} onPress={handleCadastrar} />
+          <View className="bg-[#92F2E8] rounded-lg px-7 py-4 mt-4 shadow">
+            <TouchableOpacity onPress={handleCadastrar}>
+              <Text className="text-[#35A296] font-bold">
+                {" "}
+                + Cadastrar Receita{" "}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Modal hora de uso */}
@@ -203,14 +206,15 @@ export default function CadastroReceita() {
           />
 
           <View className="p-5">
-            <TouchableOpacity
-              className="bg-[#92F2E8] rounded-xl p-4"
-              onPress={() => modalizeHoraUso.current?.close()}
-            >
-              <Text className="text-[#35A296] text-center font-bold text-base">
-                Continuar
-              </Text>
-            </TouchableOpacity>
+            <View className="bg-[#92F2E8] rounded-xl p-4">
+              <TouchableOpacity
+                onPress={() => modalizeHoraUso.current?.close()}
+              >
+                <Text className="text-[#35A296] text-center font-bold text-base">
+                  Continuar
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </Modalize>
 
@@ -236,15 +240,16 @@ export default function CadastroReceita() {
               />
             </View>
 
-            <View className="px-5">
-              <TouchableOpacity
-                className="bg-[#92F2E8] rounded-xl p-4"
-                onPress={() => modalizeDuracao.current?.close()}
-              >
-                <Text className="text-[#35A296] text-center font-bold text-base">
-                  Continuar
-                </Text>
-              </TouchableOpacity>
+            <View className="px-5 mt-5">
+              <View className="bg-[#92F2E8] rounded-xl p-4">
+                <TouchableOpacity
+                  onPress={() => modalizeDuracao.current?.close()}
+                >
+                  <Text className="text-[#35A296] text-center font-bold text-base">
+                    Continuar
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </Modalize>
@@ -263,69 +268,77 @@ export default function CadastroReceita() {
 
             <View className="flex justify-center items-center mt-14 mr-7 ml-5">
               <View className="gap-5">
-                <TouchableOpacity
-                  className="bg-[#F5F5F5] w-80 h-16 rounded-xl shadow-md  shadow-black"
-                  onPress={() => {
-                    setCompartimento("Compartimento 1");
-                    modalizeCompartimento.current?.close();
-                  }}
-                >
-                  <View className="flex-row justify-between items-center px-3 mt-2 ">
-                    <Text className="text-[#35A296] font-bold text-xl ml-3 mt-2">
-                      Compartimento 1
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  className="bg-[#F5F5F5] w-80 h-16 rounded-xl shadow-md shadow-black"
-                  onPress={() => {
-                    setCompartimento("Compartimento 2");
-                    modalizeCompartimento.current?.close();
-                  }}
-                >
-                  <View className="flex-row justify-between items-center px-3 mt-2 ">
-                    <Text className="text-[#35A296] font-bold text-xl ml-3 mt-2">
-                      Compartimento 2
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  className="bg-[#F5F5F5] w-80 h-16 rounded-xl shadow-md shadow-black"
-                  onPress={() => {
-                    setCompartimento("Compartimento 3");
-                    modalizeCompartimento.current?.close();
-                  }}
-                >
-                  <View className="flex-row justify-between items-center px-3 mt-2 ">
-                    <Text className="text-[#35A296] font-bold text-xl ml-3 mt-2">
-                      Compartimento 3
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  className="bg-[#F5F5F5] w-80 h-16 rounded-xl shadow-md shadow-black"
-                  onPress={() => {
-                    setCompartimento("Compartimento 4");
-                    modalizeCompartimento.current?.close();
-                  }}
-                >
-                  <View className="flex-row justify-between items-center px-3 mt-2 ">
-                    <Text className="text-[#35A296] font-bold text-xl ml-3 mt-2">
-                      Compartimento 4
-                    </Text>
-                  </View>
-                </TouchableOpacity>
+                <View className="bg-[#F5F5F5] w-80 h-16 rounded-xl shadow-md  shadow-black">
+                  <TouchableOpacity
+                    onPress={() => {
+                      setCompartimento("Compartimento 1");
+                      modalizeCompartimento.current?.close();
+                    }}
+                  >
+                    <View className="flex-row justify-between items-center px-3 mt-2 ">
+                      <Text className="text-[#35A296] font-bold text-xl ml-3 mt-2">
+                        Compartimento 1
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+
+                <View className="bg-[#F5F5F5] w-80 h-16 rounded-xl shadow-md shadow-black">
+                  <TouchableOpacity
+                    onPress={() => {
+                      setCompartimento("Compartimento 2");
+                      modalizeCompartimento.current?.close();
+                    }}
+                  >
+                    <View className="flex-row justify-between items-center px-3 mt-2 ">
+                      <Text className="text-[#35A296] font-bold text-xl ml-3 mt-2">
+                        Compartimento 2
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+
+                <View className="bg-[#F5F5F5] w-80 h-16 rounded-xl shadow-md shadow-black">
+                  <TouchableOpacity
+                    onPress={() => {
+                      setCompartimento("Compartimento 3");
+                      modalizeCompartimento.current?.close();
+                    }}
+                  >
+                    <View className="flex-row justify-between items-center px-3 mt-2 ">
+                      <Text className="text-[#35A296] font-bold text-xl ml-3 mt-2">
+                        Compartimento 3
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+
+                <View className="bg-[#F5F5F5] w-80 h-16 rounded-xl shadow-md shadow-black">
+                  <TouchableOpacity
+                    onPress={() => {
+                      setCompartimento("Compartimento 4");
+                      modalizeCompartimento.current?.close();
+                    }}
+                  >
+                    <View className="flex-row justify-between items-center px-3 mt-2 ">
+                      <Text className="text-[#35A296] font-bold text-xl ml-3 mt-2">
+                        Compartimento 4
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
             <View className="px-5 mt-20">
-              <TouchableOpacity
-                className="bg-[#92F2E8] rounded-xl p-4"
-                onPress={() => modalizeCompartimento.current?.close()}
-              >
-                <Text className="text-[#35A296] text-center font-bold text-base ">
-                  Continuar
-                </Text>
-              </TouchableOpacity>
+              <View className="bg-[#92F2E8] rounded-xl p-4">
+                <TouchableOpacity
+                  onPress={() => modalizeCompartimento.current?.close()}
+                >
+                  <Text className="text-[#35A296] text-center font-bold text-base ">
+                    Continuar
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </Modalize>

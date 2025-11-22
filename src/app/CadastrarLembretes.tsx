@@ -1,16 +1,11 @@
 import { router } from "expo-router";
 import { Link } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  TextInput,
-  Alert,
-} from "react-native";
+import { View, Text, Image, TextInput, Alert } from "react-native";
 import { useRef, useState } from "react";
 import { Modalize } from "react-native-modalize";
+
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 import TextinhoModal from "../components/TextinhoModal";
 import Buttons from "../components/Buttons";
@@ -73,10 +68,10 @@ export default function CadastrarLembretes() {
       return;
     }
 
-    if (diasSelecionados.length === 0) {
-      Alert.alert("Erro", "Selecione pelo menos um dia");
-      return;
-    }
+    // if (diasSelecionados.length === 0) {
+    //   Alert.alert("Erro", "Selecione pelo menos um dia");
+    //   return;
+    // }
 
     // Adicionar no app
     adicionarLembrete({
@@ -91,7 +86,7 @@ export default function CadastrarLembretes() {
       if (nomeLembrete === "Lembrete de água") {
         await enviarAgua(horaFormatada);
       } else if (nomeLembrete === "Lembrete de banho") {
-        await enviarBanho(horaFormatada); 
+        await enviarBanho(horaFormatada);
       } else if (nomeLembrete === "Lembrete de comida") {
         await enviarComida(horaFormatada);
       } else {
@@ -155,10 +150,13 @@ export default function CadastrarLembretes() {
         </View>
 
         <View className="items-center mb-10 mt-96">
-          <Buttons
-            subtitle="+ Cadastrar um lembrete"
-            onPress={handleCadastrar}
-          />
+          <View className="bg-[#92F2E8] rounded-lg px-7 py-4 mt-4 shadow">
+            <TouchableOpacity onPress={handleCadastrar}>
+              <Text className="text-[#35A296] font-bold">
+                + Cadastrar um lembrete
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Modal Lembrete */}
@@ -181,68 +179,72 @@ export default function CadastrarLembretes() {
 
               <View className="flex justify-center items-center mt-14 mr-7 ml-5">
                 <View className="gap-5">
-                  <TouchableOpacity
-                    className="bg-[#F5F5F5] w-64 h-11 rounded-xl shadow-md"
-                    onPress={() => {
-                      setNomeLembrete("Lembrete de água");
-                      modalizeLembrete.current?.close();
-                    }}
-                  >
-                    <View className="flex-row justify-between items-center px-3 mt-2">
-                      <Text className="text-[#35A296] font-bold text-xl">
-                        Lembrete de água
-                      </Text>
-                      <Image
-                        source={require("../../assets/WaterIcon.png")}
-                        className="w-5 h-5"
-                      />
-                    </View>
-                  </TouchableOpacity>
+                  <View className="bg-[#F5F5F5] w-64 h-11 rounded-xl shadow-md shadow-black">
+                    <TouchableOpacity
+                      onPress={() => {
+                        setNomeLembrete("Lembrete de água");
+                        modalizeLembrete.current?.close();
+                      }}
+                    >
+                      <View className="flex-row justify-between items-center px-3 mt-2">
+                        <Text className="text-[#35A296] font-bold text-xl">
+                          Lembrete de água
+                        </Text>
+                        <Image
+                          source={require("../../assets/WaterIcon.png")}
+                          className="w-5 h-5"
+                        />
+                      </View>
+                    </TouchableOpacity>
+                  </View>
 
-                  <TouchableOpacity
-                    className="bg-[#F5F5F5] w-64 h-11 rounded-xl shadow-md"
-                    onPress={() => {
-                      setNomeLembrete("Lembrete de banho");
-                      modalizeLembrete.current?.close();
-                    }}
-                  >
-                    <View className="flex-row justify-between items-center px-3 mt-2">
-                      <Text className="text-[#35A296] font-bold text-xl">
-                        Lembrete de banho
-                      </Text>
-                      <Image
-                        source={require("../../assets/ShowerIcon.png")}
-                        className="w-5 h-5"
-                      />
-                    </View>
-                  </TouchableOpacity>
+                  <View className="bg-[#F5F5F5] w-64 h-11 rounded-xl shadow-md shadow-black">
+                    <TouchableOpacity
+                      onPress={() => {
+                        setNomeLembrete("Lembrete de banho");
+                        modalizeLembrete.current?.close();
+                      }}
+                    >
+                      <View className="flex-row justify-between items-center px-3 mt-2">
+                        <Text className="text-[#35A296] font-bold text-xl">
+                          Lembrete de banho
+                        </Text>
+                        <Image
+                          source={require("../../assets/ShowerIcon.png")}
+                          className="w-5 h-5"
+                        />
+                      </View>
+                    </TouchableOpacity>
+                  </View>
 
-                  <TouchableOpacity
-                    className="bg-[#F5F5F5] w-64 h-11 rounded-xl shadow-md"
-                    onPress={() => {
-                      setNomeLembrete("Lembrete de comida");
-                      modalizeLembrete.current?.close();
-                    }}
-                  >
-                    <View className="flex-row justify-between items-center px-3 mt-2">
-                      <Text className="text-[#35A296] font-bold text-xl">
-                        Lembrete de comida
-                      </Text>
-                      <Image
-                        source={require("../../assets/FoodIcon.png")}
-                        className="w-5 h-5"
-                      />
-                    </View>
-                  </TouchableOpacity>
+                  <View className="bg-[#F5F5F5] w-64 h-11 rounded-xl shadow-md shadow-black">
+                    <TouchableOpacity
+                      onPress={() => {
+                        setNomeLembrete("Lembrete de comida");
+                        modalizeLembrete.current?.close();
+                      }}
+                    >
+                      <View className="flex-row justify-between items-center px-3 mt-2">
+                        <Text className="text-[#35A296] font-bold text-xl">
+                          Lembrete de comida
+                        </Text>
+                        <Image
+                          source={require("../../assets/FoodIcon.png")}
+                          className="w-5 h-5"
+                        />
+                      </View>
+                    </TouchableOpacity>
+                  </View>
 
-                  <TouchableOpacity
-                    className="bg-[#F5F5F5] w-64 h-11 rounded-xl shadow-md"
-                    onPress={() => setLembretePersonalizado(true)}
-                  >
-                    <Text className="text-[#35A296] font-bold text-xl text-center mt-2">
-                      Lembrete personalizado
-                    </Text>
-                  </TouchableOpacity>
+                  <View className="bg-[#F5F5F5] w-64 h-11 rounded-xl shadow-md shadow-black">
+                    <TouchableOpacity
+                      onPress={() => setLembretePersonalizado(true)}
+                    >
+                      <Text className="text-[#35A296] font-bold text-xl text-center mt-2">
+                        Lembrete personalizado
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </View>
@@ -275,26 +277,28 @@ export default function CadastrarLembretes() {
               />
 
               <View className="flex-row gap-3 mt-6">
-                <TouchableOpacity
-                  onPress={() => setLembretePersonalizado(false)}
-                  className="flex-1 bg-gray-200 rounded-xl p-4"
-                >
-                  <Text className="text-gray-800 font-bold text-center">
-                    Voltar
-                  </Text>
-                </TouchableOpacity>
+                <View className="flex-1 bg-gray-200 rounded-xl p-4">
+                  <TouchableOpacity
+                    onPress={() => setLembretePersonalizado(false)}
+                  >
+                    <Text className="text-gray-800 font-bold text-center">
+                      Voltar
+                    </Text>
+                  </TouchableOpacity>
+                </View>
 
-                <TouchableOpacity
-                  onPress={() => {
-                    setLembretePersonalizado(false);
-                    modalizeLembrete.current?.close();
-                  }}
-                  className="flex-1 bg-[#92F2E8] rounded-xl p-4"
-                >
-                  <Text className="text-[#35A296] font-bold text-center">
-                    Continuar
-                  </Text>
-                </TouchableOpacity>
+                <View className="flex-1 bg-[#92F2E8] rounded-xl p-4">
+                  <TouchableOpacity
+                    onPress={() => {
+                      setLembretePersonalizado(false);
+                      modalizeLembrete.current?.close();
+                    }}
+                  >
+                    <Text className="text-[#35A296] font-bold text-center">
+                      Continuar
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           )}
@@ -311,14 +315,15 @@ export default function CadastrarLembretes() {
           </View>
 
           <View className="px-5 mt-4">
-            <TouchableOpacity
-              className="bg-[#92F2E8] rounded-xl p-4"
-              onPress={() => modalizeHoraUso.current?.close()}
-            >
-              <Text className="text-[#35A296] text-center font-bold text-base">
-                Continuar
-              </Text>
-            </TouchableOpacity>
+            <View className="bg-[#92F2E8] rounded-xl p-4">
+              <TouchableOpacity
+                onPress={() => modalizeHoraUso.current?.close()}
+              >
+                <Text className="text-[#35A296] text-center font-bold text-base">
+                  Continuar
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </Modalize>
 
@@ -340,14 +345,13 @@ export default function CadastrarLembretes() {
             />
 
             <View className="px-5 mt-6">
-              <TouchableOpacity
-                className="bg-[#92F2E8] rounded-xl p-4 mt-10"
-                onPress={() => modalizeDia.current?.close()}
-              >
-                <Text className="text-[#35A296] text-center font-bold text-base">
-                  Continuar
-                </Text>
-              </TouchableOpacity>
+              <View className="bg-[#92F2E8] rounded-xl p-4 mt-10">
+                <TouchableOpacity onPress={() => modalizeDia.current?.close()}>
+                  <Text className="text-[#35A296] text-center font-bold text-base">
+                    Continuar
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </Modalize>

@@ -1,8 +1,9 @@
 import { router } from "expo-router";
 import { Link } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-import { View, Text, TouchableOpacity, Image, Alert } from "react-native";
+import { View, Text, Image, Alert } from "react-native";
 import { useRef, useState, useEffect } from "react";
 import { Modalize } from "react-native-modalize";
 
@@ -126,10 +127,13 @@ export default function Check() {
         </View>
         {/* Botão Concluído */}
         <View className="items-center mb-10 mt-96 ">
-          <Buttons
-            subtitle={tudoPreenchido ? "Check-in imediato" : "Concluído"}
-            onPress={handleConcluir}
-          />
+          <View className="bg-[#92F2E8] rounded-lg px-7 py-4 mt-4 shadow">
+            <TouchableOpacity onPress={handleConcluir}>
+              <Text className="text-[#35A296] font-bold">
+                {tudoPreenchido ? "Check-in imediato" : "Concluído"}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Modal */}
@@ -143,14 +147,15 @@ export default function Check() {
           </View>
 
           <View className="px-5 mt-4">
-            <TouchableOpacity
-              className="bg-[#92F2E8] rounded-xl p-4"
-              onPress={() => modalizeHorario.current?.close()}
-            >
-              <Text className="text-[#35A296] text-center font-bold text-base">
-                Continuar
-              </Text>
-            </TouchableOpacity>
+            <View className="bg-[#92F2E8] rounded-xl p-4">
+              <TouchableOpacity
+                onPress={() => modalizeHorario.current?.close()}
+              >
+                <Text className="text-[#35A296] text-center font-bold text-base">
+                  Continuar
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </Modalize>
 
@@ -212,14 +217,15 @@ export default function Check() {
 
             {/* Botão Continuar */}
             <View className="px-5 mt-8">
-              <TouchableOpacity
-                className="bg-[#92F2E8] rounded-xl p-4"
-                onPress={() => modalizeDuracao.current?.close()}
-              >
-                <Text className="text-[#35A296] text-center font-bold text-base">
-                  Continuar
-                </Text>
-              </TouchableOpacity>
+              <View className="bg-[#92F2E8] rounded-xl p-4">
+                <TouchableOpacity
+                  onPress={() => modalizeDuracao.current?.close()}
+                >
+                  <Text className="text-[#35A296] text-center font-bold text-base">
+                    Continuar
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </Modalize>
@@ -286,14 +292,15 @@ export default function Check() {
 
             {/* Botão Continuar */}
             <View className="px-5 mt-8">
-              <TouchableOpacity
-                className="bg-[#92F2E8] rounded-xl p-4"
-                onPress={() => modalizeRepeticao.current?.close()}
-              >
-                <Text className="text-[#35A296] text-center font-bold text-base">
-                  Continuar
-                </Text>
-              </TouchableOpacity>
+              <View className="bg-[#92F2E8] rounded-xl p-4">
+                <TouchableOpacity
+                  onPress={() => modalizeRepeticao.current?.close()}
+                >
+                  <Text className="text-[#35A296] text-center font-bold text-base">
+                    Continuar
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </Modalize>

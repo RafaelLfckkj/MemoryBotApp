@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 interface DatePickerCalendarProps {
   onDateChange?: (startDate: Date, endDate: Date) => void;
@@ -105,23 +106,21 @@ export default function DatePickerCalendar({
     <View className="px-5 bg-[#F5F5F5] pt-3 pb-3 ml-5 mr-5 shadow">
       {/* Month Navigation */}
       <View className="flex-row justify-between items-center mb-5 px-2 ">
-        <TouchableOpacity
-          onPress={prevMonth}
-          className="w-8 h-8 justify-center items-center bg-white rounded-full shadow"
-        >
-          <Text className="text-3xl mb-2 text-gray-700">‹</Text>
-        </TouchableOpacity>
+        <View className="w-8 h-8 justify-center items-center bg-white rounded-full shadow">
+          <TouchableOpacity onPress={prevMonth}>
+            <Text className="text-3xl mb-2 text-gray-700">‹</Text>
+          </TouchableOpacity>
+        </View>
 
         <Text className="text-base font-bold bg-white p-2 pl-5 pr-5 shadow rounded-xl">
           {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
         </Text>
 
-        <TouchableOpacity
-          onPress={nextMonth}
-          className="w-8 h-8 justify-center items-center bg-white rounded-full shadow"
-        >
-          <Text className="text-3xl mb-2 text-gray-700">›</Text>
-        </TouchableOpacity>
+        <View className="w-8 h-8 justify-center items-center bg-white rounded-full shadow">
+          <TouchableOpacity onPress={nextMonth}>
+            <Text className="text-3xl mb-2 text-gray-700">›</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Week Days Header */}
@@ -157,23 +156,24 @@ export default function DatePickerCalendar({
                 style={{ width: "14.28%" }}
                 className="items-center justify-center"
               >
-                <TouchableOpacity
-                  onPress={() => handleDateSelect(date)}
+                <View
                   className={`w-9 h-9 rounded-lg justify-center items-center
                     ${inRange ? "bg-[#92F2E8]" : ""}
                     ${isStart || isEnd ? "bg-[#35A296]" : ""}
                   `}
                 >
-                  <Text
-                    className={`text-sm font-medium
+                  <TouchableOpacity onPress={() => handleDateSelect(date)}>
+                    <Text
+                      className={`text-sm font-medium
                       ${isStart || isEnd ? "font-bold" : ""}
                       ${inRange && !isStart && !isEnd ? "text-[#35A296]" : ""}
                       ${!inRange ? "text-gray-700" : ""}
                     `}
-                  >
-                    {date.getDate()}
-                  </Text>
-                </TouchableOpacity>
+                    >
+                      {date.getDate()}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             );
           })}
